@@ -1,0 +1,30 @@
+# .github/workflows/deploy.yml
+name: Build & Deploy RPM Repo
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: sudo apt update && sudo apt install -y createrepo-c
+
+      - name: Build RPMs (jeśli potrzebne)
+        run: |
+          # tu kompilacja jądra/pakietów
+
+      - name: Generate repo metadata
+        run: createrepo_c .
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: .
