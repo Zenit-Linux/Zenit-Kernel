@@ -1,0 +1,5 @@
+sudo zypper ar -f \
+  https://username.github.io/kernel-repo/ \
+  custom-kernel
+sudo zypper refresh
+sudo zypper install kernel-6.6.34_custom
